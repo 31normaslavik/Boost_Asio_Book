@@ -1,5 +1,0 @@
-# ninja log v5
-2	7681	1685153700621606623	chapter1/server_endpoint/CMakeFiles/server_endpoint.dir/main.cpp.o	54a71042b3b43830
-7690	7897	1685153700841663102	chapter1/server_endpoint/server_endpoint	1a50165e3a7ddaff
-1	7936	1685153700877672344	chapter1/endpoint_in_the_client/CMakeFiles/endpoint_in_the_client.dir/main.cpp.o	572708d7158157d0
-7936	8111	1685153701053717544	chapter1/endpoint_in_the_client/endpoint_in_the_client	8048393a798a8ac3
