@@ -1,0 +1,2 @@
+add_subdirectory(endpoint_in_the_client)
+add_subdirectory(server_endpoint)
