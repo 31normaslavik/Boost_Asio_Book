@@ -1,2 +1,7 @@
 add_subdirectory(endpoint_in_the_client)
 add_subdirectory(server_endpoint)
+add_subdirectory(active_socket)
+add_subdirectory(passive_socket)
+add_subdirectory(resolving_dns)
+add_subdirectory(binding_a_socket_to_an_endpoint)
+add_subdirectory(connecting_a_socket)

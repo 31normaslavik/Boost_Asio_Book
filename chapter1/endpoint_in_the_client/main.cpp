@@ -14,7 +14,6 @@ int main()
 
     // Used to store information about error that happens
     // while parsing the raw IP-address.
-    std::cout << "Hello World!" << std::endl;
     boost::system::error_code ec;
 
     // Step 2. Using IP protocol version independent address

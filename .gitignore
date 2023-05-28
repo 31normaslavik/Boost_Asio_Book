@@ -1,3 +1,4 @@
+build/*
 build/.ninja_deps
 build/.ninja_log
 build/build.ninja
@@ -32,3 +33,4 @@ build/chapter1/endpoint_in_the_client/CMakeFiles/endpoint_in_the_client.dir/main
 build/chapter1/server_endpoint/cmake_install.cmake
 build/chapter1/server_endpoint/server_endpoint
 build/chapter1/server_endpoint/CMakeFiles/server_endpoint.dir/main.cpp.o
+build/.cmake/api/v1/reply/index-2023-05-27T02-30-34-0791.json
