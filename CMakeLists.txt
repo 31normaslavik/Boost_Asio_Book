@@ -28,3 +28,4 @@ message("Boost_libraries ${Boost_LIBRARIES}")
 message("openssl_libraries ${OPENSSL_LIBRARIES}")
 
 add_subdirectory(chapter1)
+add_subdirectory(chapter2)

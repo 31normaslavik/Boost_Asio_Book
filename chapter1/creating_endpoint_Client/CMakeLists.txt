@@ -2,7 +2,7 @@ set(SOURCES main.cpp)
 
 set(HEADERS)
 
-set(NAME_PROJECT connecting_a_socket)
+set(NAME_PROJECT creating_endpoint_client)
 
 add_executable(${NAME_PROJECT} ${SOURCES} ${HEADERS})
 

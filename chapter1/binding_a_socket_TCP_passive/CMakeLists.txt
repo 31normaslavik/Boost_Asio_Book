@@ -2,7 +2,7 @@ set(SOURCES main.cpp)
 
 set(HEADERS)
 
-set(NAME_PROJECT connecting_a_socket)
+set(NAME_PROJECT binding_a_socket_tcp_passive)
 
 add_executable(${NAME_PROJECT} ${SOURCES} ${HEADERS})
 

@@ -2,7 +2,7 @@ set(SOURCES main.cpp)
 
 set(HEADERS)
 
-set(NAME_PROJECT connecting_a_socket)
+set(NAME_PROJECT resolving_a_dns_name_tcp)
 
 add_executable(${NAME_PROJECT} ${SOURCES} ${HEADERS})
 
