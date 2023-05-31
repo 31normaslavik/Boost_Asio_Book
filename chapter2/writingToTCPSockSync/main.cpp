@@ -32,7 +32,7 @@ int main()
 	std::string raw_ip_address = "127.0.0.1";
 	unsigned short port_num = 3333;
 
-	try {
+    try {
 		asio::ip::tcp::endpoint
 			ep(asio::ip::address::from_string(raw_ip_address),
 			port_num);
