@@ -40,11 +40,10 @@ class Service
 class Acceptor
 {
   public:
-    Acceptor(asio::io_service &ios, unsigned short port_num)
-        : m_ios(ios),
-          m_acceptor(m_ios, asio::ip::tcp::endpoint(asio::ip::address_v4::any(),
-                                                    port_num))
-    {
+      Acceptor(asio::io_context &ios, unsigned short port_num)
+          : m_ios(ios)
+          , m_acceptor(m_ios, asio::ip::tcp::endpoint(asio::ip::address_v4::any(), port_num))
+      {
         m_acceptor.listen();
     }
 
@@ -59,8 +58,8 @@ class Acceptor
     }
 
   private:
-    asio::io_service &m_ios;
-    asio::ip::tcp::acceptor m_acceptor;
+      asio::io_context &m_ios;
+      asio::ip::tcp::acceptor m_acceptor;
 };
 
 class Server

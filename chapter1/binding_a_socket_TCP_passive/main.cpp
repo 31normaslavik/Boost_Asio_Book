@@ -15,7 +15,7 @@ int main()
     boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::any(), port_num);
 
     // Used by 'acceptor' class constructor.
-    boost::asio::io_service ios;
+    boost::asio::io_context ios;
 
     // Step 3. Creating and opening an acceptor socket.
     boost::asio::ip::tcp::acceptor acceptor(ios, ep.protocol());

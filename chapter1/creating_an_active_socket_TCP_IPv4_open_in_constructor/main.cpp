@@ -5,11 +5,11 @@ using namespace boost;
 
 int main()
 {
-	// Step 1. An instance of 'io_service' class is required by
-	// socket constructor. 
-	asio::io_service ios;
+    // Step 1. An instance of 'io_context' class is required by
+    // socket constructor.
+    asio::io_context ios;
 
-	// Step 2. Creating an object of 'tcp' class representing
+    // Step 2. Creating an object of 'tcp' class representing
 	// a TCP protocol with IPv4 as underlying protocol.
 	asio::ip::tcp protocol = asio::ip::tcp::v4();
 

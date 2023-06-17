@@ -12,9 +12,9 @@ int main()
 	std::string port_num = "3333";
 
 	// Used by a 'resolver' and a 'socket'.
-	asio::io_service ios;
+    asio::io_context ios;
 
-	// Creating a resolver's query.
+    // Creating a resolver's query.
 	asio::ip::tcp::resolver::query resolver_query(host, port_num,
 		asio::ip::tcp::resolver::query::numeric_service);
 

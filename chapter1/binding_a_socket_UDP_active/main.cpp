@@ -14,9 +14,9 @@ int main()
 		port_num);
 
 	// Used by 'socket' class constructor.
-	asio::io_service ios;
+    asio::io_context ios;
 
-	// Step 3. Creating and opening a socket.
+    // Step 3. Creating and opening a socket.
 	asio::ip::udp::socket sock(ios, ep.protocol());
 
 	boost::system::error_code ec;

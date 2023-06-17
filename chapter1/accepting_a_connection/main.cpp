@@ -18,7 +18,7 @@ int main()
     // Step 2. Creating a server endpoint.
     asio::ip::tcp::endpoint ep(asio::ip::address_v4::any(), port_num);
 
-    asio::io_service ios;
+    asio::io_context ios;
 
     try {
         // Step 3. Instantiating and opening an acceptor socket.

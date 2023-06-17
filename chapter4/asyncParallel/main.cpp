@@ -87,14 +87,12 @@ class Service
 
 class Acceptor
 {
-  public:
-    Acceptor(asio::io_service &ios, unsigned short port_num)
-        : m_ios(ios),
-          m_acceptor(m_ios, asio::ip::tcp::endpoint(asio::ip::address_v4::any(),
-                                                    port_num)),
-          m_isStopped(false)
-    {
-    }
+public:
+    Acceptor(asio::io_context &ios, unsigned short port_num)
+        : m_ios(ios)
+        , m_acceptor(m_ios, asio::ip::tcp::endpoint(asio::ip::address_v4::any(), port_num))
+        , m_isStopped(false)
+    {}
 
     // Start accepting incoming connection requests.
     void Start()
@@ -144,21 +142,22 @@ class Acceptor
         }
     }
 
-  private:
-    asio::io_service &m_ios;
+private:
+    asio::io_context &m_ios;
     asio::ip::tcp::acceptor m_acceptor;
     std::atomic<bool> m_isStopped;
 };
 
 class Server
 {
-  public:
-    Server() { m_work.reset(new asio::io_service::work(m_ios)); }
+public:
+    Server()
+        : m_work{asio::make_work_guard(m_ios)}
+    {}
 
     // Start the server.
     void Start(unsigned short port_num, unsigned int thread_pool_size)
     {
-
         assert(thread_pool_size > 0);
 
         // Create and start Acceptor.
@@ -188,9 +187,9 @@ class Server
         }
     }
 
-  private:
-    asio::io_service m_ios;
-    std::unique_ptr<asio::io_service::work> m_work;
+private:
+    asio::io_context m_ios;
+    asio::executor_work_guard<asio::io_context::executor_type> m_work;
     std::unique_ptr<Acceptor> acc;
     std::vector<std::unique_ptr<std::thread>> m_thread_pool;
 };

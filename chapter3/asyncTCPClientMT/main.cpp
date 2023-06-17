@@ -35,7 +35,7 @@ typedef void (*Callback)(unsigned int request_id,
 // Structure represents a context of a single request.
 struct Session
 {
-    Session(asio::io_service &ios,
+    Session(asio::io_context &ios,
             const std::string &raw_ip_address,
             unsigned short port_num,
             const std::string &request,

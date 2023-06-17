@@ -12,9 +12,9 @@ int main()
 	std::string port_num = "3333";
 
 	// Step 2.
-	asio::io_service ios;
+    asio::io_context ios;
 
-	// Step 3. Creating a query.
+    // Step 3. Creating a query.
 	asio::ip::udp::resolver::query resolver_query(host,
 		port_num, asio::ip::udp::resolver::query::numeric_service);
 

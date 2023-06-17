@@ -28,7 +28,7 @@ int main()
 	try {
         asio::ip::tcp::endpoint ep(asio::ip::address::from_string(raw_ip_address), port_num);
 
-        asio::io_service ios;
+        asio::io_context ios;
 
         std::shared_ptr<asio::ip::tcp::socket> sock(new asio::ip::tcp::socket(ios, ep.protocol()));
 

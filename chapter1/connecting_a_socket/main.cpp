@@ -18,9 +18,9 @@ int main()
 			ep(asio::ip::address::from_string(raw_ip_address),
 			port_num);
 
-		asio::io_service ios;
+        asio::io_context ios;
 
-		// Step 3. Creating and opening a socket.
+        // Step 3. Creating and opening a socket.
 		asio::ip::tcp::socket sock(ios, ep.protocol());
 
 		// Step 4. Connecting a socket.

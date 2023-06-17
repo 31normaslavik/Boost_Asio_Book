@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     std::string port_num = argv[2];
 
     // Step 2.
-    boost::asio::io_service ios;
+    boost::asio::io_context ios;
 
     // Step 3. Creating a query.
     boost::asio::ip::tcp::resolver::query

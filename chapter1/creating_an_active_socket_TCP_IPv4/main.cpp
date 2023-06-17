@@ -7,9 +7,9 @@
 
 int main()
 {
-    // Step 1. An instance of 'io_service' class is required by
+    // Step 1. An instance of 'io_context' class is required by
     // socket constructor.
-    boost::asio::io_service ios;
+    boost::asio::io_context ios;
 
     // Step 2. Creating an object of 'tcp' class representing
     // a TCP protocol with IPv4 as underlying protocol.
