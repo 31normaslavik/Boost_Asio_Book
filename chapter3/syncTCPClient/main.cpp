@@ -53,9 +53,9 @@ private:
 	}
 
 private:
-	asio::io_service m_ios;
+    asio::io_context m_ios;
 
-	asio::ip::tcp::endpoint m_ep;
+    asio::ip::tcp::endpoint m_ep;
 	asio::ip::tcp::socket m_sock;
 };
 

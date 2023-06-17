@@ -1,21 +1,22 @@
-#include <boost/predef.h> // Tools to identify the OS.
+//#include <boost/predef.h> // Tools to identify the OS.
 
-// We need this to enable cancelling of I/O operations on
-// Windows XP, Windows Server 2003 and earlier.
-// Refer to "http://www.boost.org/doc/libs/1_58_0/
-// doc/html/boost_asio/reference/basic_stream_socket/
-// cancel/overload1.html" for details.
-#ifdef BOOST_OS_WINDOWS
-#define _WIN32_WINNT 0x0501
+//// We need this to enable cancelling of I/O operations on
+//// Windows XP, Windows Server 2003 and earlier.
+//// Refer to "http://www.boost.org/doc/libs/1_58_0/
+//// doc/html/boost_asio/reference/basic_stream_socket/
+//// cancel/overload1.html" for details.
+//#ifdef BOOST_OS_WINDOWS
+//#define _WIN32_WINNT 0x0501
 
-#if _WIN32_WINNT <= 0x0502 // Windows Server 2003 or earlier.
-#define BOOST_ASIO_DISABLE_IOCP
-#define BOOST_ASIO_ENABLE_CANCELIO
-#endif
-#endif
+//#if _WIN32_WINNT <= 0x0502 // Windows Server 2003 or earlier.
+//#define BOOST_ASIO_DISABLE_IOCP
+//#define BOOST_ASIO_ENABLE_CANCELIO
+//#endif
+//#endif
 
 #include <boost/asio.hpp>
 
+//#include <boost/asio/executor_work_guard.hpp>
 #include <iostream>
 #include <list>
 #include <map>
@@ -74,8 +75,8 @@ class AsyncTCPClient : public boost::asio::noncopyable
 {
 public:
     AsyncTCPClient(unsigned char num_of_threads)
+        : m_work{asio::make_work_guard(m_ios)}
     {
-        m_work.reset(new boost::asio::io_service::work(m_ios));
 
         for (unsigned char i = 1; i <= num_of_threads; i++) {
             std::unique_ptr<std::thread> th(new std::thread([this]() { m_ios.run(); }));
@@ -176,7 +177,7 @@ public:
         // Destroy work object. This allows the I/O threads to
         // exit the event loop when there are no more pending
         // asynchronous operations.
-        m_work.reset(NULL);
+        m_work.reset();
 
         // Waiting for the I/O threads to exit.
         for (auto &thread : m_threads) {
@@ -215,10 +216,10 @@ private:
     };
 
 private:
-    asio::io_service m_ios;
+    asio::io_context m_ios;
     std::map<int, std::shared_ptr<Session>> m_active_sessions;
     std::mutex m_active_sessions_guard;
-    std::unique_ptr<boost::asio::io_service::work> m_work;
+    asio::executor_work_guard<boost::asio::io_context::executor_type> m_work;
     std::list<std::unique_ptr<std::thread>> m_threads;
 };
 
@@ -246,18 +247,25 @@ int main()
 
         // User initiates a request with id 1.
         client.emulateLongComputationOp(10, "127.0.0.1", 3333, handler, 1);
+
         // Then does nothing for 5 seconds.
         std::this_thread::sleep_for(std::chrono::seconds(5));
+
         // Then initiates another request with id 2.
         client.emulateLongComputationOp(11, "127.0.0.1", 3334, handler, 2);
+
         // Then decides to cancel the request with id 1.
         client.cancelRequest(1);
+
         // Does nothing for another 6 seconds.
         std::this_thread::sleep_for(std::chrono::seconds(6));
+
         // Initiates one more request assigning ID 3 to it.
         client.emulateLongComputationOp(12, "127.0.0.1", 3335, handler, 3);
+
         // Does nothing for another 15 seconds.
         std::this_thread::sleep_for(std::chrono::seconds(15));
+
         // Decides to exit the application.
         client.close();
     } catch (system::system_error &e) {

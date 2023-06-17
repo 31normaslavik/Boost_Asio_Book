@@ -61,17 +61,15 @@ int main()
 	unsigned short port_num = 3333;
 
 	try {
-		asio::ip::tcp::endpoint
-			ep(asio::ip::address::from_string(raw_ip_address),
-			port_num);
+        asio::ip::tcp::endpoint ep(asio::ip::address::from_string(raw_ip_address), port_num);
 
-		asio::io_service ios;
+        asio::io_context ios;
 
-		// Step 3. Allocating, opening and connecting a socket.
-		std::shared_ptr<asio::ip::tcp::socket> sock(
-			new asio::ip::tcp::socket(ios, ep.protocol()));
+        // Step 3. Allocating, opening and connecting a socket.
+        std::shared_ptr<asio::ip::tcp::socket> sock
+            = std::make_shared<asio::ip::tcp::socket>(ios, ep.protocol());
 
-		sock->connect(ep);
+        sock->connect(ep);
 
 		readFromSocket(sock);
 

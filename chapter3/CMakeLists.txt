@@ -6,6 +6,6 @@ file(
 foreach(item ${V_GLOB})
   if(IS_DIRECTORY ${item})
     add_subdirectory(${item})
-    message("ADD SUBDIR ${item}")
+    message("add_subdirectory ${item}")
   endif()
 endforeach()

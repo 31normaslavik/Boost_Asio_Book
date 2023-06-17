@@ -45,9 +45,9 @@ private:
 	}
 
 private:
-	asio::io_service m_ios;
+    asio::io_context m_ios;
 
-	asio::ip::udp::socket m_sock;
+    asio::ip::udp::socket m_sock;
 };
 
 int main()
