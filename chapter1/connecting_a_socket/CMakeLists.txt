@@ -1,10 +1,6 @@
-set(SOURCES main.cpp)
-
-set(HEADERS)
-
 set(NAME_PROJECT connecting_a_socket)
 
-add_executable(${NAME_PROJECT} ${SOURCES} ${HEADERS})
+add_executable(${NAME_PROJECT} main.cpp)
 
 target_link_libraries(${NAME_PROJECT} ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES})
 

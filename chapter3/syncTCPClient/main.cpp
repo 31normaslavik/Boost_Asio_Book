@@ -1,93 +1,33 @@
-#include <boost/asio.hpp>
+#include "synctcpclient.h"
+
 #include <iostream>
 
-using namespace boost;
+#include <boost/system/system_error.hpp>
 
-class SyncTCPClient {
-public:
-	SyncTCPClient(const std::string& raw_ip_address,
-		unsigned short port_num) :
-		m_ep(asio::ip::address::from_string(raw_ip_address),
-		port_num),
-		m_sock(m_ios) {
+int main() {
+  const std::string raw_ip_address = "127.0.0.1";
+  const unsigned short port_num = 3333;
 
-		m_sock.open(m_ep.protocol());
-	}
+  try {
+    SyncTCPClient client(raw_ip_address, port_num);
 
-	void connect() {
-		m_sock.connect(m_ep);
-	}
+    // Sync connect.
+    client.connect();
 
-	void close() {
-		m_sock.shutdown(
-			boost::asio::ip::tcp::socket::shutdown_both);
-		m_sock.close();
-	}
+    std::cout << "Sending request to the server... " << std::endl;
 
-	std::string emulateLongComputationOp(
-		unsigned int duration_sec) {
+    std::string response = client.emulateLongComputationOp(10);
 
-		std::string request = "EMULATE_LONG_COMP_OP "
-			+ std::to_string(duration_sec)
-			+ "\n";
+    std::cout << "Response received: " << response << std::endl;
 
-		sendRequest(request);
-		return receiveResponse();
-	};
+    // Close the connection and free resources.
+    client.close();
+  } catch (boost::system::system_error &e) {
+    std::cout << "Error occured! Error code = " << e.code()
+              << ". Message: " << e.what();
 
-private:
-	void sendRequest(const std::string& request) {
-		asio::write(m_sock, asio::buffer(request));
-	}
+    return e.code().value();
+  }
 
-	std::string receiveResponse() {
-		asio::streambuf buf;
-		asio::read_until(m_sock, buf, '\n');
-
-		std::istream input(&buf);
-
-		std::string response;
-		std::getline(input, response);
-
-		return response;
-	}
-
-private:
-    asio::io_context m_ios;
-
-    asio::ip::tcp::endpoint m_ep;
-	asio::ip::tcp::socket m_sock;
-};
-
-int main()
-{
-	const std::string raw_ip_address = "127.0.0.1";
-	const unsigned short port_num = 3333;
-
-	try {
-		SyncTCPClient client(raw_ip_address, port_num);
-
-		// Sync connect.
-		client.connect();
-
-		std::cout << "Sending request to the server... "
-			<< std::endl;
-
-		std::string response =
-			client.emulateLongComputationOp(10);
-
-		std::cout << "Response received: " << response
-			<< std::endl;
-
-		// Close the connection and free resources.
-		client.close();
-	}
-	catch (system::system_error &e) {
-		std::cout << "Error occured! Error code = " << e.code()
-			<< ". Message: " << e.what();
-
-		return e.code().value();
-	}
-
-	return 0;
+  return 0;
 }

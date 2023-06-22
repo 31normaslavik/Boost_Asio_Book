@@ -1,10 +1,10 @@
-set(SOURCES main.cpp)
-
-set(HEADERS)
 
 set(NAME_PROJECT asyncTCPClient)
 
-add_executable(${NAME_PROJECT} ${SOURCES} ${HEADERS})
+add_executable(${NAME_PROJECT} main.cpp
+    session.h session.cpp
+    asynctcpclient.h asynctcpclient.cpp
+    function.h function.cpp)
 
 target_link_libraries(${NAME_PROJECT} ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES})
 

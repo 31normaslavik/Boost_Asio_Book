@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.24)
 
 project(Boost_Asio_Book LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++23 -Wall -Wextra -Wpedantic -Wno-unused-parameter")
 
 message("cmake_cxx_standard ${CMAKE_CXX_STANDARD}")
 message("CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS}")
@@ -34,3 +34,4 @@ add_subdirectory(chapter1)
 add_subdirectory(chapter2)
 add_subdirectory(chapter3)
 add_subdirectory(chapter4)
+add_subdirectory(chapter5)
